@@ -1,5 +1,7 @@
-import React from 'react'
+import { React, useState } from 'react'
 import MusicPlayer from '../musicPlayer/MusicPlayer';
+import {motion} from 'framer-motion';
+import VisibilitySensor from 'react-visibility-sensor';
 
 import BackGround from '../img/backgraphics.png';
 import D1 from '../img/d1.png';
@@ -10,11 +12,42 @@ import SearchIcon from '../img/search.png';
 import Path318 from '../img/Path 318.png';
 
 function Search() {
+    const [elementIsVisible, setElementIsVisible] = useState(false);
+    const bg = {
+        true: {
+          left: "-44rem",
+        },
+        false: {
+          left: "-50rem",
+        },
+      };
+      const redimg = {
+        true: {
+          left: "18rem",
+        },
+        false: {
+          left: "16rem",
+        },
+      };
+      const musicimg = {
+        true: {
+          left: "2rem",
+        },
+        false: {
+          left: "6rem",
+        },
+      };
   return (
     <div className='search relative h-[65rem] px-[5rem] bg-[#081730] pt-[18rem] pb-[10rem] 
     mt-[-15rem] flex items-center justify-between rounded-b-[5rem]'>
         <div className='left flex-1'>
-            <img 
+            <motion.img 
+                variants={bg}
+                animate={`${elementIsVisible}`}
+                transition={{
+                duration: 1,
+                type: "ease-out",
+                }}
                 src={BackGround}
                 alt=''
                 className='absolute top-[16.5rem] left-[-70rem]'
@@ -29,12 +62,24 @@ function Search() {
                 alt=''
                 className='absolute w-[9rem] top-[32.7rem] left-[7rem]'
             />
-            <img 
+            <motion.img 
+                variants={redimg}
+                animate={`${elementIsVisible}`}
+                transition={{
+                duration: 1.2,
+                type: "ease-out",
+                }}
                 src={D3}
                 alt=''
                 className='absolute w-[9rem] top-[33rem] left-[17rem]'
             />
-            <img 
+            <motion.img 
+                variants={musicimg}
+                animate={`${elementIsVisible}`}
+                transition={{
+                duration: 1,
+                type: "ease-out",
+                }}
                 src={D4}
                 alt=''
                 className='absolute w-[17rem] top-[50rem] left-[2rem]'
@@ -74,7 +119,11 @@ function Search() {
                     ewfbweufb wefwef ewfhwegfuwe.
                 </span>
             </div>
+            <VisibilitySensor
+            onChange={(isVisible) => setElementIsVisible(isVisible)}
+            >
             <MusicPlayer />
+            </VisibilitySensor>
         </div>
     </div>
   )
